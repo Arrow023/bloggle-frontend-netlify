@@ -8889,7 +8889,7 @@ const environment = {
     production: true,
     // SERVER_URL : "https://www.bloggle.tech:2083"
     //SERVER_URL : "http://localhost:54096",
-    SERVER_URL: "https://bloggle.bsite.net/",
+    SERVER_URL: "http://bloggle-001-site1.itempurl.com",
     API_KEY: "AIzaSyAxQ7UIfFZQjEBVM0EMImEQk9lYGx4XQKw",
     PERSPECTIVE_API: "https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key="
 };
