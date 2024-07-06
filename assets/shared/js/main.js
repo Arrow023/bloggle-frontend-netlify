@@ -45,59 +45,6 @@
     {
         LikeAndBookmarkChecker();
     }, 500);
-
-	//Dark mode Snippets
-	function getCookie(cname) {
-	  var name = cname + "=";
-	  var decodedCookie = decodeURIComponent(document.cookie);
-	  var ca = decodedCookie.split(';');
-	  for (var i = 0; i < ca.length; i++) {
-		  var c = ca[i];
-		  while (c.charAt(0) == ' ') {
-			  c = c.substring(1);
-		  }
-		  if (c.indexOf(name) == 0) {
-			  return c.substring(name.length, c.length);
-		  }
-	  }
-	  return "";
-	}
-
-
-	function darkModeToggler(mode)
-	{
-	  if(mode)
-	  {
-		var body = document.body;
-		body.classList.add("dark-mode");
-		var totalHeadings = document.getElementsByClassName('fh5co_magna');
-		console.log(totalHeadings.length);
-		for (let index = 0; index < totalHeadings.length; index++) {
-		  (totalHeadings[index]).style.color = "#fff";
-		  console.log(totalHeadings[index]);
-		}
-	  }
-	  else
-	  {
-		var body = document.body;
-		body.classList.remove("dark-mode");
-	  }
-	}
-
-	document.getElementById('mode').addEventListener("onClick", function(){
-		alert("clicked");
-		var mode = document.getElementById('mode').checked;
-		if(mode==true)
-		{
-		document.cookie = "darkmode=true";
-		darkModeToggler(true);
-		}
-		else 
-		{
-		document.cookie = "darkmode=false";
-		darkModeToggler(false);
-		}
-	})
     
 
 
