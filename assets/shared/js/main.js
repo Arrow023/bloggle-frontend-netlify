@@ -46,6 +46,7 @@
         LikeAndBookmarkChecker();
     }, 500);
 
+
 	//Dark mode Snippets
 	function getCookie(cname) {
 	  var name = cname + "=";
@@ -62,7 +63,6 @@
 	  }
 	  return "";
 	}
-
 
 	function darkModeToggler(mode)
 	{
@@ -84,6 +84,7 @@
 	  }
 	}
 
+
 	document.getElementById('mode').addEventListener("onClick", function(){
 		alert("clicked");
 		var mode = document.getElementById('mode').checked;
@@ -98,7 +99,6 @@
 		darkModeToggler(false);
 		}
 	})
-    
 
 
     $("#selectedCategory li").click(function () {
