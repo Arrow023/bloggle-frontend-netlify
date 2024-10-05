@@ -5599,7 +5599,47 @@ class LoginComponent {
         this.fieldTextType = false;
         this.availableUsers = [];
     }
+    handleCredentialResponse(response) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            // Here will be your response from Google.
+            console.log(response.credential);
+            this.authService.loginWithGoogle(response.credential)
+                .subscribe((data) => {
+                console.log("Login done !");
+                localStorage.setItem('User', JSON.stringify(data));
+                //this.router.navigate(['/home']);
+                window.location.href = '/home';
+                this.authService.isLoggedIn.next(true);
+                this.authService.userAuthenticated = true;
+                this.authForm.reset();
+            }, (err) => {
+                this.authForm.reset();
+                this.authService.isLoggedIn.next(false);
+                this.authService.userAuthenticated = false;
+                if (err.status === 400) {
+                    this.loginError = "Invalid username or password";
+                }
+                else {
+                    this.loginError = "Technical Error occurred. Please try later.";
+                }
+            });
+        });
+    }
     ngOnInit() {
+        // @ts-ignore
+        google.accounts.id.initialize({
+            client_id: "1097842679595-hetnuckn520oimudgk5u2dk20tai082r.apps.googleusercontent.com",
+            scope: "openid email https://www.googleapis.com/auth/user.birthday.read",
+            callback: this.handleCredentialResponse.bind(this),
+            auto_select: false,
+            cancel_on_tap_outside: true,
+        });
+        // @ts-ignore
+        google.accounts.id.renderButton(
+        // @ts-ignore
+        document.getElementById("google-button"), { theme: "outline", size: "large", width: "100%" });
+        // @ts-ignore
+        google.accounts.id.prompt((notification) => { });
         //Meta Tags for SEO activities
         this.titleService.setTitle("Login");
         this.metaTagService.addTags([
@@ -5655,7 +5695,7 @@ class LoginComponent {
     }
 }
 LoginComponent.ɵfac = function LoginComponent_Factory(t) { return new (t || LoginComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__["Title"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__["Meta"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_8__["MatDialog"])); };
-LoginComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: LoginComponent, selectors: [["app-login"]], decls: 32, vars: 8, consts: [["id", "start", 1, "container"], [1, "row"], [1, "col-lg-10", "col-xl-9", "mx-auto"], [1, "card", "card-signin", "flex-row", "my-5"], [1, "card-img-left", "d-none", "d-md-flex"], [1, "card-body"], [1, "card-title", "text-center"], ["class", "text-center", "style", "color:red;font-weight:bold", 4, "ngIf"], [1, "form-signin", 3, "formGroup", "submit"], [1, "form-label-group"], ["type", "text", "id", "inputUserame", "placeholder", "Username", "formControlName", "username", "required", "", "autofocus", "", 1, "form-control"], ["for", "inputUserame"], [1, "form-label-group", "input-group"], ["id", "inputPassword", "placeholder", "Password", "formControlName", "password", "required", "", 1, "form-control", 3, "type", "keyup.enter"], ["for", "inputPassword", 2, "width", "90%"], [1, "input-group-append"], [1, "input-group-text"], [1, "fa", 2, "color", "mediumblue", 3, "ngClass", "click"], ["type", "submit", 1, "btn", "btn-lg", "btn-success", "btn-block", "text-uppercase", 3, "disabled"], ["href", "/register", 1, "d-block", "text-center", "mt-2", "small", 2, "color", "green"], [1, "my-4"], ["type", "button", 1, "btn", "btn-lg", "btn-google", "btn-block", "text-uppercase", 3, "click"], [1, "fa", "fa-google", "mr-2"], ["type", "button", 1, "btn", "btn-lg", "btn-facebook", "btn-block", "text-uppercase", 3, "click"], [1, "fa", "fa-facebook-f", "mr-2"], [1, "text-center", 2, "color", "red", "font-weight", "bold"]], template: function LoginComponent_Template(rf, ctx) { if (rf & 1) {
+LoginComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: LoginComponent, selectors: [["app-login"]], decls: 32, vars: 8, consts: [["id", "start", 1, "container"], [1, "row"], [1, "col-lg-10", "col-xl-9", "mx-auto"], [1, "card", "card-signin", "flex-row", "my-5"], [1, "card-img-left", "d-none", "d-md-flex"], [1, "card-body"], [1, "card-title", "text-center"], ["class", "text-center", "style", "color:red;font-weight:bold", 4, "ngIf"], [1, "form-signin", 3, "formGroup", "submit"], [1, "form-label-group"], ["type", "text", "id", "inputUserame", "placeholder", "Username", "formControlName", "username", "required", "", "autofocus", "", 1, "form-control"], ["for", "inputUserame"], [1, "form-label-group", "input-group"], ["id", "inputPassword", "placeholder", "Password", "formControlName", "password", "required", "", 1, "form-control", 3, "type", "keyup.enter"], ["for", "inputPassword", 2, "width", "90%"], [1, "input-group-append"], [1, "input-group-text"], [1, "fa", 2, "color", "mediumblue", 3, "ngClass", "click"], ["type", "submit", 1, "btn", "btn-lg", "btn-success", "btn-block", "text-uppercase", 3, "disabled"], ["href", "/register", 1, "d-block", "text-center", "mt-2", "small", 2, "color", "green"], [1, "my-4"], ["id", "google-button", "type", "button", 1, "btn", "btn-lg", "btn-block"], [1, "fa", "fa-google", "mr-2"], ["type", "button", 1, "btn", "btn-lg", "btn-facebook", "btn-block", "text-uppercase", 3, "click"], [1, "fa", "fa-facebook-f", "mr-2"], [1, "text-center", 2, "color", "red", "font-weight", "bold"]], template: function LoginComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "div", 2);
@@ -5697,7 +5737,6 @@ LoginComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineCom
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](25, "hr", 20);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](26, "button", 21);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function LoginComponent_Template_button_click_26_listener() { return ctx.comingSoon(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](27, "i", 22);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](28, " Sign up with Google");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -7673,6 +7712,12 @@ class AuthService {
     }
     getAllUsers() {
         return this.http.get(`${this.api}/api/account/allusers`);
+    }
+    loginWithGoogle(accessToken) {
+        return this.http.get(`${this.api}/api/account/loginwithGoogle?accessToken=${accessToken}`)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(responseData => {
+            this.handleAuthentication(responseData.userName, responseData.access_token, responseData.expires_in);
+        }));
     }
     login(credentials) {
         const body = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpParams"]()
